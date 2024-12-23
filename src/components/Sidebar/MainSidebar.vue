@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ProfilePhoto from '../Logo/ProfilePhoto.vue'
+import NavItem from '../NavItem/NavItem.vue'
 
 const navItems = [
   { href: '#', label: 'Profile', children: [], icon: null },
@@ -18,8 +19,12 @@ const navItems = [
     label: 'tasks',
     children: [
       { href: '#', label: 'all tasks', children: [], icon: null },
-      { href: '#', label: 'Add new', children: [], icon: null },
-      { href: '#', label: '3-d level', children: [], icon: null },
+      {
+        href: '#',
+        label: 'Add new',
+        children: [{ href: '#', label: '3-d level', children: [], icon: null }],
+        icon: null,
+      },
     ],
     icon: null,
   },
@@ -28,35 +33,24 @@ const navItems = [
 
 <template>
   <div class="flex min-h-screen">
-    <div class="w-64 shrink-0 text-white bg-gray-950 border-r border-gray-500 py-4">
+    <div class="w-64 shrink-0 text-white bg-gray-950 border-r border-gray-950 py-4">
       <div class="px-4">
         <a href="#" class="inline-block"><ProfilePhoto class="h-8 w-auto" /></a>
       </div>
 
-      <nav>
-        <template v-for="item in navItems" :key="item.label">
-          <a class="flex" :href="item.href">{{ item.label }}</a>
-
-          <div v-if="item.children.length">
-            <a v-for="child in item.children" :key="child.label" :href="child.href">
-              {{ child.label }}</a
-            >
-          </div>
-        </template>
-
-        <a href="#">Projects</a>
-
-        <a href="">tasks</a>
-        <div>
-          <a href="#">all tasks</a>
-          <a href="#">Add new</a>
-          <div><a href="">3-d level</a></div>
-        </div>
+      <nav class="mt-2 px-2">
+        <NavItem :item="item" v-for="item in navItems" :key="item.label" />
       </nav>
     </div>
 
-    <main class="flex items-center justify-center">
-      <p>Timer</p>
+    <main class="flex-grow flex items-center justify-center bg-gray-800 text-white flex-col">
+      <p class="text-6xl mb-4">Task "something"</p>
+      <p class="text-3xl text-white mb-6">30:00</p>
+      <button
+        class="px-6 py-2 bg-black text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+      >
+        Старт
+      </button>
     </main>
   </div>
 </template>
